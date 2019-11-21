@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 
-const port = !!process.env.PORT ? process.env.PORT:  3000;
-const logOn = !!process.env.LOG_ON ? process.env.LOG_ON:  false;
+const port = !!process.env.PORT ? process.env.PORT : 3000;
+const logOn = !!process.env.LOG_ON ? process.env.LOG_ON :  false;
 
 // Parse application/x-amz-json-1.1
 app.use (function(req, res, next) {
