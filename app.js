@@ -35,6 +35,7 @@ app.post('/', (req, res) => {
     switch(target) {
         case "AmazonSSM.GetParameter": result = GetParameter(secrets, req); break;
         case "AmazonSSM.GetParameters": result = GetParameters(secrets, req); break;
+        case "AmazonSSM.GetParametersByPath": result = GetParametersByPath(secrets, req); break;
         default:
             throw Error(`Not implemented target: ${target}`);
     }
@@ -85,6 +86,26 @@ function GetParameters(secrets, req) {
 
     return {
         "InvalidParameters": invalidParameters,
+        "Parameters": parameters
+    };
+}
+
+function GetParametersByPath(secrets, req) {
+    const parameters = [];
+    const invalidParameters = [];
+
+    for (const name of secrets) {
+        if (name.startsWith(req.body.Path)) {
+            parameters.push({
+                    "Name": name,
+                    "Type": "String",
+                    "Value": secrets[name],
+                    "Version": 1
+            });
+        }
+    }
+
+    return {
         "Parameters": parameters
     };
 }
