@@ -94,7 +94,7 @@ function GetParametersByPath(secrets, req) {
     const parameters = [];
     const invalidParameters = [];
 
-    for (const name of secrets) {
+    for (const name of Object.keys(secrets)) {
         if (name.startsWith(req.body.Path)) {
             parameters.push({
                     "Name": name,
